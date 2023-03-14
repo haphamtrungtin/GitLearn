@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitSimulator.Service
+namespace GitLearn.Service
 {
     public interface IBaseService<TEntity> where TEntity : class
     {
@@ -12,6 +12,6 @@ namespace GitSimulator.Service
         TEntity GetById(int id);
         void Create(TEntity entity);
         void Update(TEntity entity);
-        void Delete(TEntity entity);
+        void Delete();
     }
 }

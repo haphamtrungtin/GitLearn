@@ -1,24 +1,25 @@
 ﻿using GitLearn.DAL.Repositories.Interface;
 using GitLearn.Data;
-using GitSimulator.DAL.UnitOfWork;
+using GitLearn.DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitSimulator.DAL.Repository
+namespace GitLearn.DAL.Repository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         protected readonly GitContext _context;
         internal DbSet<TEntity> dbSet;
 
-        public GenericRepository(GitContext context)
+        public GenericRepository(DbContext context)
         {
             _context = context;
-            dbSet = _context.Set<TEntity>();
+            _dbSet = _context.Set<TEntity>();
         }
 
         public void Create(TEntity entity)
@@ -26,19 +27,32 @@ namespace GitSimulator.DAL.Repository
             _context.Set<TEntity>().Add(entity);
         }
 
-        public void Delete(TEntity entity)
+        public void Delete()
         {
-            _context.Set<TEntity>().Remove(entity);
+            _dbSet.RemoveRange(GetAll());
+            _context.SaveChanges();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public void DeleteById(int id)
         {
-            return  _context.Set<TEntity>().ToList();
+            var entity = GetById(id);
+            _dbSet.Remove(entity);
+            _context.SaveChanges();
+        }
+
+        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _dbSet.Where(predicate).AsQueryable();
+        }
+
+        public IQueryable<TEntity> GetAll()
+        {
+            return _context.Set<TEntity>().AsQueryable();
         }
 
         public TEntity GetById(int? id)
         {
-            return _context.Set<TEntity>().Find(id);
+            return _dbSet.Find(id);
         }
 
         public IEnumerable<TEntity> GetByCondition(Func<TEntity, bool> predicate)
@@ -48,7 +62,8 @@ namespace GitSimulator.DAL.Repository
 
         public void Update(TEntity entity)
         {
-            _context.Set<TEntity>().Update(entity);
+            _dbSet.Attach(entity);
+            _dbSet.Entry(entity).State = EntityState.Modified;
         }
 
         
