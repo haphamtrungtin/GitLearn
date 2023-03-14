@@ -1,5 +1,6 @@
 ﻿using GitLearn.Data;
-using GitSimulator.Service;
+using GitLearn.Service;
+
 
 namespace GitLearn.Services.Interface
 {

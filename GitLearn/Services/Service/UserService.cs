@@ -1,9 +1,11 @@
 ﻿
 
+
+
 using GitLearn.Data;
+using GitLearn.Service.UserService;
 using GitSimulator.DAL.UnitOfWork;
 using GitSimulator.Service;
-using GitSimulator.Service.UserService;
 
 namespace GitLearn.Services.Service
 {

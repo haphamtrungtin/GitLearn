@@ -12,6 +12,6 @@ namespace GitLearn.Service
         TEntity GetById(int id);
         void Create(TEntity entity);
         void Update(TEntity entity);
-        void Delete();
+
     }
 }

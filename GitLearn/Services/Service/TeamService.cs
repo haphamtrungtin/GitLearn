@@ -100,6 +100,7 @@ namespace GitLearn.Services.Service
         {
             var teamMember = new TeamMember() { Team = newTeam, User = user };
             _unitOfWork.TeamMemberRepository.Create(teamMember);
+            
         }
 
         internal Team RemoveMember(int teamId, params int[] memberId)

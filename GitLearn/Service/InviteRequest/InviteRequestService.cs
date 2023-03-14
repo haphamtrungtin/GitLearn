@@ -1,6 +1,7 @@
 ﻿using GitLearn.Data;
-using GitLearn.DAL.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
+using GitSimulator.Service;
+using GitLearn.Services.Interface;
+using GitSimulator.DAL.UnitOfWork;
 
 namespace GitLearn.Service.InviteRequestService
 {

@@ -1,10 +1,8 @@
 ﻿using GitLearn.DAL.Repositories.Interface;
+using GitLearn.DAL.Repository;
+using GitLearn.Service;
 using GitSimulator.DAL.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GitSimulator.Service
 {

@@ -1,6 +1,9 @@
-﻿using GitLearn.DAL.Repositories.Interface;
+﻿
+
+
+using GitLearn.DAL.Repositories.Interface;
+using GitLearn.DAL.Repository;
 using GitLearn.Data;
-using GitSimulator.DAL.Repository;
 
 namespace GitLearn.DAL.Repositories.Repository
 {

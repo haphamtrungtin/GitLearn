@@ -10,7 +10,7 @@ using GitSimulator.DAL.UnitOfWork;
 namespace GitLearn
 {
     [TestClass]
-    public class TeamTest
+    public class TeamServiceTest
     {
         GitContext _context;
         private IUnitOfWork _uow;

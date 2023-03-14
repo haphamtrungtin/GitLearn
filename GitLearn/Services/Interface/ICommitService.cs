@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GitLearn.Data;
-using GitSimulator.Service;
+﻿using GitLearn.Data;
+using GitLearn.Service;
 
 namespace GitLearn.Services.Interface
 {
