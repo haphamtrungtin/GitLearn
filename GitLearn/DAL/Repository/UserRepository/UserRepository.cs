@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.DAL.Repository.UserRepository
+namespace GitLearn.DAL.Repository.UserRepository
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {

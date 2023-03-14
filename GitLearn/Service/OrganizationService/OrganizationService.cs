@@ -1,8 +1,8 @@
 ﻿using GitLearn.Data;
-using GitSimulator.DAL.UnitOfWork;
+using GitLearn.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace GitSimulator.Service.OrganizationService
+namespace GitLearn.Service.OrganizationService
 {
     public class OrganizationService : BaseService<Organization>, IOrganizationService
     {

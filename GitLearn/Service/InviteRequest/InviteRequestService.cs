@@ -1,8 +1,8 @@
 ﻿using GitLearn.Data;
-using GitSimulator.DAL.UnitOfWork;
+using GitLearn.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace GitSimulator.Service.InviteRequestService
+namespace GitLearn.Service.InviteRequestService
 {
     public class InviteRequestService : BaseService<InviteRequest>, IInviteService
     {

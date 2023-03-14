@@ -1,12 +1,13 @@
 ﻿using GitLearn.Data;
-using GitSimulator.DAL.UnitOfWork;
+using GitLearn.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitSimulator.Service.CommitService
+namespace GitLearn.Service.CommitService
 {
     public class CommitService : BaseService<Commit>, ICommitService
     {

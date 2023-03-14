@@ -1,7 +1,8 @@
 ﻿using GitLearn.Data;
-using GitSimulator.DAL.Repository;
+using GitLearn.DAL.Repository;
+using Microsoft.EntityFrameworkCore;
 
-namespace GitSimulator.DAL.UnitOfWork
+namespace GitLearn.DAL.UnitOfWork
 {
     public interface IUnitOfWork
     {
@@ -11,6 +12,6 @@ namespace GitSimulator.DAL.UnitOfWork
         void CreateTransaction();
         void Commit();
         void Rollback();
-        void Save();
+        void SaveChange();
     }
 }

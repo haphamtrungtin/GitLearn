@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.Service.OrganizationService
+namespace GitLearn.Service.OrganizationService
 {
     public interface IOrganizationService : IBaseService<Organization>
     {

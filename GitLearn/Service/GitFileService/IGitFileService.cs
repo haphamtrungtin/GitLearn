@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.Service.GitFileService
+namespace GitLearn.Service.GitFileService
 {
     public interface IGitFileService : IBaseService<GitFile>
     {

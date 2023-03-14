@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitSimulator.DAL.Repository.BranchRepository
+namespace GitLearn.DAL.Repository.BranchRepository
 {
     internal class BranchRepository : GenericRepository<Branch>, IBranchRepository
     {

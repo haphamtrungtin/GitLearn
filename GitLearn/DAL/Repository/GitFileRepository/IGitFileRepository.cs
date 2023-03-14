@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.DAL.Repository.GitFileRepository
+namespace GitLearn.DAL.Repository.GitFileRepository
 {
     internal interface IGitFileRepository : IGenericRepository<GitFile>
     {

@@ -1,12 +1,13 @@
-﻿using GitSimulator.DAL.Repository;
-using GitSimulator.DAL.UnitOfWork;
+﻿using GitLearn.DAL.Repository;
+using GitLearn.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitSimulator.Service
+namespace GitLearn.Service
 {
     public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class
     {
@@ -24,9 +25,9 @@ namespace GitSimulator.Service
             _repository.Create(entity);
         }
 
-        public void Delete(TEntity entity)
+        public void Delete()
         {
-            _repository.Delete(entity);
+            _repository.Delete();
         }
 
         public IEnumerable<TEntity> GetAll()

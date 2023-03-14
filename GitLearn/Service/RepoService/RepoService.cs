@@ -1,9 +1,9 @@
 ﻿using GitLearn.Data;
 
-using GitSimulator.DAL.UnitOfWork;
+using GitLearn.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace GitSimulator.Service.RepoService
+namespace GitLearn.Service.RepoService
 {
     public class RepoService : BaseService<Repo>, IRepoService
     {

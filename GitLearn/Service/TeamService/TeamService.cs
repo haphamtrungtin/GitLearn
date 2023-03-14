@@ -1,4 +1,4 @@
-﻿using GitSimulator.DAL.UnitOfWork;
+﻿using GitLearn.DAL.UnitOfWork;
 
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GitSimulator.Service.UserService;
+using GitLearn.Service.UserService;
 using GitLearn.Data;
 
-namespace GitSimulator.Service.TeamService
+namespace GitLearn.Service.TeamService
 {
     public class TeamService : BaseService<Team>, ITeamService
     {
@@ -21,18 +21,8 @@ namespace GitSimulator.Service.TeamService
 
         public Team CreateTeam(int creatorId, string name)
         {
-            //var userService = new UserServices(_unitOfWork);
-            //User creator = userService.GetUser(creatorId);
-
-            Team newTeam = new()
-            {
-                Name = name,
-                IsParentTeam = true,
-            };
-
-            _unitOfWork.TeamRepository.Create(newTeam);
-            _unitOfWork.Save();
-            return newTeam;
+            var result = new Team();
+            return result;
         }
     }
 }

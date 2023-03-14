@@ -1,9 +1,10 @@
 ﻿
 
 using GitLearn.Data;
-using GitSimulator.DAL.UnitOfWork;
+using GitLearn.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
-namespace GitSimulator.Service.GitFileService
+namespace GitLearn.Service.GitFileService
 {
     public class GitFileService : BaseService<GitFile>, IGitFileService
     {

@@ -1,7 +1,7 @@
 ﻿using GitLearn.Data;
-using GitSimulator.DAL.Repository;
-using GitSimulator.DAL.Repository.TeamRepository;
-using GitSimulator.DAL.Repository.UserRepository;
+using GitLearn.DAL.Repository;
+using GitLearn.DAL.Repository.TeamRepository;
+using GitLearn.DAL.Repository.UserRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -11,14 +11,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitSimulator.DAL.UnitOfWork
+namespace GitLearn.DAL.UnitOfWork
 {
     internal class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly GitContext _context;
-        private bool _disposed;
-        private Hashtable _repositories;
+        private bool _disposed = false;
         private IDbContextTransaction _transaction;
+
+        private Dictionary<(Type type, string name), object> _repositories;
+
         public IGenericRepository<Team> teamRepository;
         public IGenericRepository<User> userRepository;
 
@@ -26,7 +28,7 @@ namespace GitSimulator.DAL.UnitOfWork
         {
             get
             {
-                if (teamRepository != null)
+                if (teamRepository is null)
                 {
                     teamRepository = new GenericRepository<Team>(_context);
                 }
@@ -37,7 +39,7 @@ namespace GitSimulator.DAL.UnitOfWork
         {
             get
             {
-                if (userRepository != null)
+                if (userRepository is null)
                 {
                     userRepository = new GenericRepository<User>(_context);
                 }
@@ -47,27 +49,18 @@ namespace GitSimulator.DAL.UnitOfWork
 
         public UnitOfWork(GitContext context)
         {
-            _context = context;
-            _repositories= new Hashtable();
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
-            var type = typeof(TEntity).Name;
-
-            if (!_repositories.ContainsKey(type))
-            {
-                var repositoryType = typeof(GenericRepository<>);
-                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _context);
-                _repositories.Add(type, repositoryInstance);
-            }
-
-            return (IGenericRepository<TEntity>)_repositories[type];
+            return (IGenericRepository<TEntity>) GetOrAddRepository(typeof(TEntity), new GenericRepository<TEntity>(_context));
         }
 
         public void Commit()
         {
             _transaction.Commit();
+            _context.SaveChanges();
         }
 
         public void CreateTransaction()
@@ -87,7 +80,7 @@ namespace GitSimulator.DAL.UnitOfWork
             _transaction.Dispose();
         }
 
-        public void Save()
+        public void SaveChange()
         {
             _context.SaveChanges();
         }
@@ -97,6 +90,20 @@ namespace GitSimulator.DAL.UnitOfWork
             if (!_disposed && disposing)
                 _context.Dispose();
             _disposed = true;
+        }
+
+        internal object GetOrAddRepository(Type type, object repo)
+        {
+            _repositories ??= new Dictionary<(Type type, string Name), object>();
+
+            if (_repositories.TryGetValue((type, repo.GetType().FullName), out var repository)) return repository;
+            _repositories.Add((type, repo.GetType().FullName), repo);
+            return repo;
+        }
+
+        internal IDbContextTransaction GetTransaction()
+        {
+            return _transaction;
         }
     }
 }

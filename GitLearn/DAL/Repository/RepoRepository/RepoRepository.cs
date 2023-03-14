@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.DAL.Repository.RepoRepository
+namespace GitLearn.DAL.Repository.RepoRepository
 {
     public class RepoRepository : GenericRepository<Repo>, IRepoRepository
     {

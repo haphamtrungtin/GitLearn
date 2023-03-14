@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.Service.RepoService
+namespace GitLearn.Service.RepoService
 {
     public interface IRepoService : IBaseService<Repo>
     {

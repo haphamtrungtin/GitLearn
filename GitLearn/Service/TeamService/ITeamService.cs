@@ -1,7 +1,7 @@
 ﻿
 using GitLearn.Data;
 
-namespace GitSimulator.Service.TeamService
+namespace GitLearn.Service.TeamService
 {
     public interface ITeamService : IBaseService<Team>
     {

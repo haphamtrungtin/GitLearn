@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.DAL.Repository.OrganizationRepository
+namespace GitLearn.DAL.Repository.OrganizationRepository
 {
     public class OrganizationRepository : GenericRepository<Organization>, IOrganizationRepository
     {

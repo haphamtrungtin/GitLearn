@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.Service.InviteRequestService
+namespace GitLearn.Service.InviteRequestService
 {
     public interface IInviteService : IBaseService<InviteRequest>
     {

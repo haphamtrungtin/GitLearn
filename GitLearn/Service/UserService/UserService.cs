@@ -1,9 +1,10 @@
 ﻿
 
 using GitLearn.Data;
-using GitSimulator.DAL.UnitOfWork;
+using GitLearn.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
-namespace GitSimulator.Service.UserService
+namespace GitLearn.Service.UserService
 {
     public class UserServices : BaseService<User>, IUserService
     {

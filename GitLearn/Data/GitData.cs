@@ -16,6 +16,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Linq;
@@ -132,7 +133,7 @@ namespace GitLearn.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=(local);Initial Catalog=GitDb;Integrated Security=True;MultipleActiveResultSets=True;Encrypt=false;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer(@"Data Source=(local);Initial Catalog=GitSimulator;Integrated Security=True;MultipleActiveResultSets=True;Encrypt=false;TrustServerCertificate=true");
                 //optionsBuilder.UseLazyLoadingProxies();
             }
         }
@@ -921,19 +922,19 @@ namespace GitLearn.Data
         public virtual ICollection<Branch> Branches { get; set; } // Branch.FK__Branch__ParentBr__5165187F
 
         /// <summary>
-        /// Child PullRequests where [PullRequest].[FromBranchId] point to this entity (FK__PullReque__FromB__59063A47)
+        /// Child PullRequests where [PullRequest].[FromBranchId] point to this entity (FK__PullReque__FromB__5812160E)
         /// </summary>
-        public virtual ICollection<PullRequest> PullRequests_FromBranchId { get; set; } // PullRequest.FK__PullReque__FromB__59063A47
+        public virtual ICollection<PullRequest> PullRequests_FromBranchId { get; set; } // PullRequest.FK__PullReque__FromB__5812160E
 
         /// <summary>
-        /// Child PullRequests where [PullRequest].[ToBranchId] point to this entity (FK__PullReque__ToBra__59FA5E80)
+        /// Child PullRequests where [PullRequest].[ToBranchId] point to this entity (FK__PullReque__ToBra__59063A47)
         /// </summary>
-        public virtual ICollection<PullRequest> PullRequests_ToBranchId { get; set; } // PullRequest.FK__PullReque__ToBra__59FA5E80
+        public virtual ICollection<PullRequest> PullRequests_ToBranchId { get; set; } // PullRequest.FK__PullReque__ToBra__59063A47
 
         /// <summary>
-        /// Child Repoes where [Repo].[BranchId] point to this entity (FK__Repo__BranchId__70DDC3D8)
+        /// Child Repoes where [Repo].[BranchId] point to this entity (FK__Repo__BranchId__5EBF139D)
         /// </summary>
-        public virtual ICollection<Repo> Repoes { get; set; } // Repo.FK__Repo__BranchId__70DDC3D8
+        public virtual ICollection<Repo> Repoes { get; set; } // Repo.FK__Repo__BranchId__5EBF139D
 
         // Foreign keys
 
@@ -943,14 +944,14 @@ namespace GitLearn.Data
         public virtual Branch ParentBranch { get; set; } // FK__Branch__ParentBr__5165187F
 
         /// <summary>
-        /// Parent Commit pointed by [Branch].([CommitId]) (FK__Branch__CommitId__6477ECF3)
+        /// Parent Commit pointed by [Branch].([CommitId]) (FK__Branch__CommitId__52593CB8)
         /// </summary>
-        public virtual Commit Commit { get; set; } // FK__Branch__CommitId__6477ECF3
+        public virtual Commit Commit { get; set; } // FK__Branch__CommitId__52593CB8
 
         /// <summary>
-        /// Parent GitFile pointed by [Branch].([GitFileId]) (FK__Branch__GitFileI__628FA481)
+        /// Parent GitFile pointed by [Branch].([GitFileId]) (FK__Branch__GitFileI__5070F446)
         /// </summary>
-        public virtual GitFile GitFile { get; set; } // FK__Branch__GitFileI__628FA481
+        public virtual GitFile GitFile { get; set; } // FK__Branch__GitFileI__5070F446
 
         public Branch()
         {
@@ -971,9 +972,9 @@ namespace GitLearn.Data
         // Reverse navigation
 
         /// <summary>
-        /// Child Branches where [Branch].[CommitId] point to this entity (FK__Branch__CommitId__6477ECF3)
+        /// Child Branches where [Branch].[CommitId] point to this entity (FK__Branch__CommitId__52593CB8)
         /// </summary>
-        public virtual ICollection<Branch> Branches { get; set; } // Branch.FK__Branch__CommitId__6477ECF3
+        public virtual ICollection<Branch> Branches { get; set; } // Branch.FK__Branch__CommitId__52593CB8
 
         // Foreign keys
 
@@ -998,9 +999,9 @@ namespace GitLearn.Data
         // Reverse navigation
 
         /// <summary>
-        /// Child Branches where [Branch].[GitFileId] point to this entity (FK__Branch__GitFileI__628FA481)
+        /// Child Branches where [Branch].[GitFileId] point to this entity (FK__Branch__GitFileI__5070F446)
         /// </summary>
-        public virtual ICollection<Branch> Branches { get; set; } // Branch.FK__Branch__GitFileI__628FA481
+        public virtual ICollection<Branch> Branches { get; set; } // Branch.FK__Branch__GitFileI__5070F446
 
         /// <summary>
         /// Child Commits where [Commit].[GitFileId] point to this entity (FK__Commit__GitFileI__534D60F1)
@@ -1025,9 +1026,9 @@ namespace GitLearn.Data
         // Reverse navigation
 
         /// <summary>
-        /// Child Repoes where [Repo].[InviteRequestId] point to this entity (FK__Repo__InviteRequ__72C60C4A)
+        /// Child Repoes where [Repo].[InviteRequestId] point to this entity (FK__Repo__InviteRequ__60A75C0F)
         /// </summary>
-        public virtual ICollection<Repo> Repoes { get; set; } // Repo.FK__Repo__InviteRequ__72C60C4A
+        public virtual ICollection<Repo> Repoes { get; set; } // Repo.FK__Repo__InviteRequ__60A75C0F
 
         // Foreign keys
 
@@ -1058,16 +1059,16 @@ namespace GitLearn.Data
         // Reverse navigation
 
         /// <summary>
-        /// Child OrgUsers where [OrgUser].[OrganizationId] point to this entity (FK__OrgUser__Organiz__76969D2E)
+        /// Child OrgUsers where [OrgUser].[OrganizationId] point to this entity (FK__OrgUser__Organiz__6477ECF3)
         /// </summary>
-        public virtual ICollection<OrgUser> OrgUsers { get; set; } // OrgUser.FK__OrgUser__Organiz__76969D2E
+        public virtual ICollection<OrgUser> OrgUsers { get; set; } // OrgUser.FK__OrgUser__Organiz__6477ECF3
 
         // Foreign keys
 
         /// <summary>
-        /// Parent Repo pointed by [Organization].([RepositoryId]) (FK__Organizat__Repos__75A278F5)
+        /// Parent Repo pointed by [Organization].([RepositoryId]) (FK__Organizat__Repos__6383C8BA)
         /// </summary>
-        public virtual Repo Repo { get; set; } // FK__Organizat__Repos__75A278F5
+        public virtual Repo Repo { get; set; } // FK__Organizat__Repos__6383C8BA
 
         public Organization()
         {
@@ -1085,14 +1086,14 @@ namespace GitLearn.Data
         // Foreign keys
 
         /// <summary>
-        /// Parent Organization pointed by [OrgUser].([OrganizationId]) (FK__OrgUser__Organiz__76969D2E)
+        /// Parent Organization pointed by [OrgUser].([OrganizationId]) (FK__OrgUser__Organiz__6477ECF3)
         /// </summary>
-        public virtual Organization Organization { get; set; } // FK__OrgUser__Organiz__76969D2E
+        public virtual Organization Organization { get; set; } // FK__OrgUser__Organiz__6477ECF3
 
         /// <summary>
-        /// Parent User pointed by [OrgUser].([UserId]) (FK__OrgUser__UserId__778AC167)
+        /// Parent User pointed by [OrgUser].([UserId]) (FK__OrgUser__UserId__656C112C)
         /// </summary>
-        public virtual User User { get; set; } // FK__OrgUser__UserId__778AC167
+        public virtual User User { get; set; } // FK__OrgUser__UserId__656C112C
     }
 
     // PullRequest
@@ -1109,31 +1110,31 @@ namespace GitLearn.Data
         // Reverse navigation
 
         /// <summary>
-        /// Child Repoes where [Repo].[PullRequestId] point to this entity (FK__Repo__PullReques__619B8048)
+        /// Child Repoes where [Repo].[PullRequestId] point to this entity (FK__Repo__PullReques__5FB337D6)
         /// </summary>
-        public virtual ICollection<Repo> Repoes { get; set; } // Repo.FK__Repo__PullReques__619B8048
+        public virtual ICollection<Repo> Repoes { get; set; } // Repo.FK__Repo__PullReques__5FB337D6
 
         // Foreign keys
 
         /// <summary>
-        /// Parent Branch pointed by [PullRequest].([FromBranchId]) (FK__PullReque__FromB__59063A47)
+        /// Parent Branch pointed by [PullRequest].([FromBranchId]) (FK__PullReque__FromB__5812160E)
         /// </summary>
-        public virtual Branch FromBranch { get; set; } // FK__PullReque__FromB__59063A47
+        public virtual Branch FromBranch { get; set; } // FK__PullReque__FromB__5812160E
 
         /// <summary>
-        /// Parent Branch pointed by [PullRequest].([ToBranchId]) (FK__PullReque__ToBra__59FA5E80)
+        /// Parent Branch pointed by [PullRequest].([ToBranchId]) (FK__PullReque__ToBra__59063A47)
         /// </summary>
-        public virtual Branch ToBranch { get; set; } // FK__PullReque__ToBra__59FA5E80
+        public virtual Branch ToBranch { get; set; } // FK__PullReque__ToBra__59063A47
 
         /// <summary>
-        /// Parent User pointed by [PullRequest].([OwnerId]) (FK__PullReque__Owner__5812160E)
+        /// Parent User pointed by [PullRequest].([OwnerId]) (FK__PullReque__Owner__571DF1D5)
         /// </summary>
-        public virtual User Owner { get; set; } // FK__PullReque__Owner__5812160E
+        public virtual User Owner { get; set; } // FK__PullReque__Owner__571DF1D5
 
         /// <summary>
-        /// Parent User pointed by [PullRequest].([ReviewerId]) (FK__PullReque__Revie__571DF1D5)
+        /// Parent User pointed by [PullRequest].([ReviewerId]) (FK__PullReque__Revie__5629CD9C)
         /// </summary>
-        public virtual User Reviewer { get; set; } // FK__PullReque__Revie__571DF1D5
+        public virtual User Reviewer { get; set; } // FK__PullReque__Revie__5629CD9C
 
         public PullRequest()
         {
@@ -1161,41 +1162,41 @@ namespace GitLearn.Data
         public virtual ICollection<InviteRequest> InviteRequests { get; set; } // InviteRequest.FK__InviteReq__RepoI__5441852A
 
         /// <summary>
-        /// Child Organizations where [Organization].[RepositoryId] point to this entity (FK__Organizat__Repos__75A278F5)
+        /// Child Organizations where [Organization].[RepositoryId] point to this entity (FK__Organizat__Repos__6383C8BA)
         /// </summary>
-        public virtual ICollection<Organization> Organizations { get; set; } // Organization.FK__Organizat__Repos__75A278F5
+        public virtual ICollection<Organization> Organizations { get; set; } // Organization.FK__Organizat__Repos__6383C8BA
 
         /// <summary>
-        /// Child RepoTeams where [RepoTeam].[RepositoryId] point to this entity (FK__RepoTeam__Reposi__5CD6CB2B)
+        /// Child RepoTeams where [RepoTeam].[RepositoryId] point to this entity (FK__RepoTeam__Reposi__5BE2A6F2)
         /// </summary>
-        public virtual ICollection<RepoTeam> RepoTeams { get; set; } // RepoTeam.FK__RepoTeam__Reposi__5CD6CB2B
+        public virtual ICollection<RepoTeam> RepoTeams { get; set; } // RepoTeam.FK__RepoTeam__Reposi__5BE2A6F2
 
         /// <summary>
-        /// Child RepoUsers where [RepoUser].[RepoId] point to this entity (FK__RepoUser__RepoId__5AEE82B9)
+        /// Child RepoUsers where [RepoUser].[RepoId] point to this entity (FK__RepoUser__RepoId__59FA5E80)
         /// </summary>
-        public virtual ICollection<RepoUser> RepoUsers { get; set; } // RepoUser.FK__RepoUser__RepoId__5AEE82B9
+        public virtual ICollection<RepoUser> RepoUsers { get; set; } // RepoUser.FK__RepoUser__RepoId__59FA5E80
 
         // Foreign keys
 
         /// <summary>
-        /// Parent Branch pointed by [Repo].([BranchId]) (FK__Repo__BranchId__70DDC3D8)
+        /// Parent Branch pointed by [Repo].([BranchId]) (FK__Repo__BranchId__5EBF139D)
         /// </summary>
-        public virtual Branch Branch { get; set; } // FK__Repo__BranchId__70DDC3D8
+        public virtual Branch Branch { get; set; } // FK__Repo__BranchId__5EBF139D
 
         /// <summary>
-        /// Parent InviteRequest pointed by [Repo].([InviteRequestId]) (FK__Repo__InviteRequ__72C60C4A)
+        /// Parent InviteRequest pointed by [Repo].([InviteRequestId]) (FK__Repo__InviteRequ__60A75C0F)
         /// </summary>
-        public virtual InviteRequest InviteRequest { get; set; } // FK__Repo__InviteRequ__72C60C4A
+        public virtual InviteRequest InviteRequest { get; set; } // FK__Repo__InviteRequ__60A75C0F
 
         /// <summary>
-        /// Parent PullRequest pointed by [Repo].([PullRequestId]) (FK__Repo__PullReques__619B8048)
+        /// Parent PullRequest pointed by [Repo].([PullRequestId]) (FK__Repo__PullReques__5FB337D6)
         /// </summary>
-        public virtual PullRequest PullRequest { get; set; } // FK__Repo__PullReques__619B8048
+        public virtual PullRequest PullRequest { get; set; } // FK__Repo__PullReques__5FB337D6
 
         /// <summary>
-        /// Parent User pointed by [Repo].([OwnerId]) (FK__Repo__OwnerId__5EBF139D)
+        /// Parent User pointed by [Repo].([OwnerId]) (FK__Repo__OwnerId__5DCAEF64)
         /// </summary>
-        public virtual User User { get; set; } // FK__Repo__OwnerId__5EBF139D
+        public virtual User User { get; set; } // FK__Repo__OwnerId__5DCAEF64
 
         public Repo()
         {
@@ -1216,14 +1217,14 @@ namespace GitLearn.Data
         // Foreign keys
 
         /// <summary>
-        /// Parent Repo pointed by [RepoTeam].([RepositoryId]) (FK__RepoTeam__Reposi__5CD6CB2B)
+        /// Parent Repo pointed by [RepoTeam].([RepositoryId]) (FK__RepoTeam__Reposi__5BE2A6F2)
         /// </summary>
-        public virtual Repo Repo { get; set; } // FK__RepoTeam__Reposi__5CD6CB2B
+        public virtual Repo Repo { get; set; } // FK__RepoTeam__Reposi__5BE2A6F2
 
         /// <summary>
-        /// Parent Team pointed by [RepoTeam].([TeamId]) (FK__RepoTeam__TeamId__5DCAEF64)
+        /// Parent Team pointed by [RepoTeam].([TeamId]) (FK__RepoTeam__TeamId__5CD6CB2B)
         /// </summary>
-        public virtual Team Team { get; set; } // FK__RepoTeam__TeamId__5DCAEF64
+        public virtual Team Team { get; set; } // FK__RepoTeam__TeamId__5CD6CB2B
     }
 
     // RepoUser
@@ -1236,14 +1237,14 @@ namespace GitLearn.Data
         // Foreign keys
 
         /// <summary>
-        /// Parent Repo pointed by [RepoUser].([RepoId]) (FK__RepoUser__RepoId__5AEE82B9)
+        /// Parent Repo pointed by [RepoUser].([RepoId]) (FK__RepoUser__RepoId__59FA5E80)
         /// </summary>
-        public virtual Repo Repo { get; set; } // FK__RepoUser__RepoId__5AEE82B9
+        public virtual Repo Repo { get; set; } // FK__RepoUser__RepoId__59FA5E80
 
         /// <summary>
-        /// Parent User pointed by [RepoUser].([UserId]) (FK__RepoUser__UserId__5BE2A6F2)
+        /// Parent User pointed by [RepoUser].([UserId]) (FK__RepoUser__UserId__5AEE82B9)
         /// </summary>
-        public virtual User User { get; set; } // FK__RepoUser__UserId__5BE2A6F2
+        public virtual User User { get; set; } // FK__RepoUser__UserId__5AEE82B9
     }
 
     // Team
@@ -1252,37 +1253,37 @@ namespace GitLearn.Data
         public int Id { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name
         public int? ParentTeamId { get; set; } // ParentTeamId
-        public bool? IsParentTeam { get; set; } // IsParentTeam
-        public bool? IsPublic { get; set; } // IsPublic
+        public byte? IsParentTeam { get; set; } // IsParentTeam
+        public byte? IsPublic { get; set; } // IsPublic
 
         // Reverse navigation
 
         /// <summary>
-        /// Child RepoTeams where [RepoTeam].[TeamId] point to this entity (FK__RepoTeam__TeamId__5DCAEF64)
+        /// Child RepoTeams where [RepoTeam].[TeamId] point to this entity (FK__RepoTeam__TeamId__5CD6CB2B)
         /// </summary>
-        public virtual ICollection<RepoTeam> RepoTeams { get; set; } // RepoTeam.FK__RepoTeam__TeamId__5DCAEF64
+        public virtual ICollection<RepoTeam> RepoTeams { get; set; } // RepoTeam.FK__RepoTeam__TeamId__5CD6CB2B
 
         /// <summary>
-        /// Child Teams where [Team].[ParentTeamId] point to this entity (FK__Team__ParentTeam__7A672E12)
+        /// Child Teams where [Team].[ParentTeamId] point to this entity (FK__Team__ParentTeam__68487DD7)
         /// </summary>
-        public virtual ICollection<Team> Teams { get; set; } // Team.FK__Team__ParentTeam__7A672E12
+        public virtual ICollection<Team> Teams { get; set; } // Team.FK__Team__ParentTeam__68487DD7
 
         /// <summary>
-        /// Child TeamMembers where [TeamMember].[TeamId] point to this entity (FK__TeamMembe__TeamI__787EE5A0)
+        /// Child TeamMembers where [TeamMember].[TeamId] point to this entity (FK__TeamMembe__TeamI__66603565)
         /// </summary>
-        public virtual ICollection<TeamMember> TeamMembers { get; set; } // TeamMember.FK__TeamMembe__TeamI__787EE5A0
+        public virtual ICollection<TeamMember> TeamMembers { get; set; } // TeamMember.FK__TeamMembe__TeamI__66603565
 
         /// <summary>
-        /// Child TeamUsers where [TeamUser].[TeamId] point to this entity (FK__TeamUser__TeamId__73BA3083)
+        /// Child TeamUsers where [TeamUser].[TeamId] point to this entity (FK__TeamUser__TeamId__619B8048)
         /// </summary>
-        public virtual ICollection<TeamUser> TeamUsers { get; set; } // TeamUser.FK__TeamUser__TeamId__73BA3083
+        public virtual ICollection<TeamUser> TeamUsers { get; set; } // TeamUser.FK__TeamUser__TeamId__619B8048
 
         // Foreign keys
 
         /// <summary>
-        /// Parent Team pointed by [Team].([ParentTeamId]) (FK__Team__ParentTeam__7A672E12)
+        /// Parent Team pointed by [Team].([ParentTeamId]) (FK__Team__ParentTeam__68487DD7)
         /// </summary>
-        public virtual Team ParentTeam { get; set; } // FK__Team__ParentTeam__7A672E12
+        public virtual Team ParentTeam { get; set; } // FK__Team__ParentTeam__68487DD7
 
         public Team()
         {
@@ -1303,14 +1304,14 @@ namespace GitLearn.Data
         // Foreign keys
 
         /// <summary>
-        /// Parent Team pointed by [TeamMember].([TeamId]) (FK__TeamMembe__TeamI__787EE5A0)
+        /// Parent Team pointed by [TeamMember].([TeamId]) (FK__TeamMembe__TeamI__66603565)
         /// </summary>
-        public virtual Team Team { get; set; } // FK__TeamMembe__TeamI__787EE5A0
+        public virtual Team Team { get; set; } // FK__TeamMembe__TeamI__66603565
 
         /// <summary>
-        /// Parent User pointed by [TeamMember].([UserId]) (FK__TeamMembe__UserI__797309D9)
+        /// Parent User pointed by [TeamMember].([UserId]) (FK__TeamMembe__UserI__6754599E)
         /// </summary>
-        public virtual User User { get; set; } // FK__TeamMembe__UserI__797309D9
+        public virtual User User { get; set; } // FK__TeamMembe__UserI__6754599E
     }
 
     // TeamUser
@@ -1323,19 +1324,20 @@ namespace GitLearn.Data
         // Foreign keys
 
         /// <summary>
-        /// Parent Team pointed by [TeamUser].([TeamId]) (FK__TeamUser__TeamId__73BA3083)
+        /// Parent Team pointed by [TeamUser].([TeamId]) (FK__TeamUser__TeamId__619B8048)
         /// </summary>
-        public virtual Team Team { get; set; } // FK__TeamUser__TeamId__73BA3083
+        public virtual Team Team { get; set; } // FK__TeamUser__TeamId__619B8048
 
         /// <summary>
-        /// Parent User pointed by [TeamUser].([UserId]) (FK__TeamUser__UserId__74AE54BC)
+        /// Parent User pointed by [TeamUser].([UserId]) (FK__TeamUser__UserId__628FA481)
         /// </summary>
-        public virtual User User { get; set; } // FK__TeamUser__UserId__74AE54BC
+        public virtual User User { get; set; } // FK__TeamUser__UserId__628FA481
     }
 
     // User
     public class User
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name
         public string Email { get; set; } // Email (length: 50)
@@ -1350,39 +1352,39 @@ namespace GitLearn.Data
         public virtual ICollection<InviteRequest> InviteRequests { get; set; } // InviteRequest.FK__InviteReq__Recei__5535A963
 
         /// <summary>
-        /// Child OrgUsers where [OrgUser].[UserId] point to this entity (FK__OrgUser__UserId__778AC167)
+        /// Child OrgUsers where [OrgUser].[UserId] point to this entity (FK__OrgUser__UserId__656C112C)
         /// </summary>
-        public virtual ICollection<OrgUser> OrgUsers { get; set; } // OrgUser.FK__OrgUser__UserId__778AC167
+        public virtual ICollection<OrgUser> OrgUsers { get; set; } // OrgUser.FK__OrgUser__UserId__656C112C
 
         /// <summary>
-        /// Child PullRequests where [PullRequest].[OwnerId] point to this entity (FK__PullReque__Owner__5812160E)
+        /// Child PullRequests where [PullRequest].[OwnerId] point to this entity (FK__PullReque__Owner__571DF1D5)
         /// </summary>
-        public virtual ICollection<PullRequest> PullRequests_OwnerId { get; set; } // PullRequest.FK__PullReque__Owner__5812160E
+        public virtual ICollection<PullRequest> PullRequests_OwnerId { get; set; } // PullRequest.FK__PullReque__Owner__571DF1D5
 
         /// <summary>
-        /// Child PullRequests where [PullRequest].[ReviewerId] point to this entity (FK__PullReque__Revie__571DF1D5)
+        /// Child PullRequests where [PullRequest].[ReviewerId] point to this entity (FK__PullReque__Revie__5629CD9C)
         /// </summary>
-        public virtual ICollection<PullRequest> PullRequests_ReviewerId { get; set; } // PullRequest.FK__PullReque__Revie__571DF1D5
+        public virtual ICollection<PullRequest> PullRequests_ReviewerId { get; set; } // PullRequest.FK__PullReque__Revie__5629CD9C
 
         /// <summary>
-        /// Child Repoes where [Repo].[OwnerId] point to this entity (FK__Repo__OwnerId__5EBF139D)
+        /// Child Repoes where [Repo].[OwnerId] point to this entity (FK__Repo__OwnerId__5DCAEF64)
         /// </summary>
-        public virtual ICollection<Repo> Repoes { get; set; } // Repo.FK__Repo__OwnerId__5EBF139D
+        public virtual ICollection<Repo> Repoes { get; set; } // Repo.FK__Repo__OwnerId__5DCAEF64
 
         /// <summary>
-        /// Child RepoUsers where [RepoUser].[UserId] point to this entity (FK__RepoUser__UserId__5BE2A6F2)
+        /// Child RepoUsers where [RepoUser].[UserId] point to this entity (FK__RepoUser__UserId__5AEE82B9)
         /// </summary>
-        public virtual ICollection<RepoUser> RepoUsers { get; set; } // RepoUser.FK__RepoUser__UserId__5BE2A6F2
+        public virtual ICollection<RepoUser> RepoUsers { get; set; } // RepoUser.FK__RepoUser__UserId__5AEE82B9
 
         /// <summary>
-        /// Child TeamMembers where [TeamMember].[UserId] point to this entity (FK__TeamMembe__UserI__797309D9)
+        /// Child TeamMembers where [TeamMember].[UserId] point to this entity (FK__TeamMembe__UserI__6754599E)
         /// </summary>
-        public virtual ICollection<TeamMember> TeamMembers { get; set; } // TeamMember.FK__TeamMembe__UserI__797309D9
+        public virtual ICollection<TeamMember> TeamMembers { get; set; } // TeamMember.FK__TeamMembe__UserI__6754599E
 
         /// <summary>
-        /// Child TeamUsers where [TeamUser].[UserId] point to this entity (FK__TeamUser__UserId__74AE54BC)
+        /// Child TeamUsers where [TeamUser].[UserId] point to this entity (FK__TeamUser__UserId__628FA481)
         /// </summary>
-        public virtual ICollection<TeamUser> TeamUsers { get; set; } // TeamUser.FK__TeamUser__UserId__74AE54BC
+        public virtual ICollection<TeamUser> TeamUsers { get; set; } // TeamUser.FK__TeamUser__UserId__628FA481
 
         public User()
         {
@@ -1412,7 +1414,7 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<Branch> builder)
         {
             builder.ToTable("Branch", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__Branch__3214EC07CC031E3C").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__Branch__3214EC0773D6F463").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar(max)").IsRequired(false).IsUnicode(false);
@@ -1424,8 +1426,8 @@ namespace GitLearn.Data
             builder.Property(x => x.GitFileId).HasColumnName(@"GitFileId").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.Commit).WithMany(b => b.Branches).HasForeignKey(c => c.CommitId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Branch__CommitId__6477ECF3");
-            builder.HasOne(a => a.GitFile).WithMany(b => b.Branches).HasForeignKey(c => c.GitFileId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Branch__GitFileI__628FA481");
+            builder.HasOne(a => a.Commit).WithMany(b => b.Branches).HasForeignKey(c => c.CommitId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Branch__CommitId__52593CB8");
+            builder.HasOne(a => a.GitFile).WithMany(b => b.Branches).HasForeignKey(c => c.GitFileId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Branch__GitFileI__5070F446");
             builder.HasOne(a => a.ParentBranch).WithMany(b => b.Branches).HasForeignKey(c => c.ParentBranchId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Branch__ParentBr__5165187F");
         }
     }
@@ -1436,7 +1438,7 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<Commit> builder)
         {
             builder.ToTable("Commit", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__Commit__3214EC072C0EC8E9").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__Commit__3214EC0700CB7606").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.GitFileId).HasColumnName(@"GitFileId").HasColumnType("int").IsRequired(false);
@@ -1453,7 +1455,7 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<GitFile> builder)
         {
             builder.ToTable("GitFile", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__GitFile__3214EC0710C372A9").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__GitFile__3214EC074B5C5FBD").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar(max)").IsRequired(false).IsUnicode(false);
@@ -1467,7 +1469,7 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<InviteRequest> builder)
         {
             builder.ToTable("InviteRequest", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__InviteRe__3214EC079CD43103").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__InviteRe__3214EC0776EBC43D").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.RepoId).HasColumnName(@"RepoId").HasColumnType("int").IsRequired(false);
@@ -1486,7 +1488,7 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<Organization> builder)
         {
             builder.ToTable("Organization", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__Organiza__3214EC07D1BF946B").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__Organiza__3214EC07EC3B7DCA").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.OrgName).HasColumnName(@"OrgName").HasColumnType("varchar(max)").IsRequired(false).IsUnicode(false);
@@ -1494,7 +1496,7 @@ namespace GitLearn.Data
             builder.Property(x => x.RepositoryId).HasColumnName(@"RepositoryId").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.Repo).WithMany(b => b.Organizations).HasForeignKey(c => c.RepositoryId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Organizat__Repos__75A278F5");
+            builder.HasOne(a => a.Repo).WithMany(b => b.Organizations).HasForeignKey(c => c.RepositoryId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Organizat__Repos__6383C8BA");
         }
     }
 
@@ -1504,15 +1506,15 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<OrgUser> builder)
         {
             builder.ToTable("OrgUser", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__OrgUser__3214EC07671DB174").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__OrgUser__3214EC07328DB1FA").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.OrganizationId).HasColumnName(@"OrganizationId").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.Organization).WithMany(b => b.OrgUsers).HasForeignKey(c => c.OrganizationId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__OrgUser__Organiz__76969D2E");
-            builder.HasOne(a => a.User).WithMany(b => b.OrgUsers).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__OrgUser__UserId__778AC167");
+            builder.HasOne(a => a.Organization).WithMany(b => b.OrgUsers).HasForeignKey(c => c.OrganizationId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__OrgUser__Organiz__6477ECF3");
+            builder.HasOne(a => a.User).WithMany(b => b.OrgUsers).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__OrgUser__UserId__656C112C");
         }
     }
 
@@ -1522,7 +1524,7 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<PullRequest> builder)
         {
             builder.ToTable("PullRequest", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__PullRequ__3214EC07E663D8BF").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__PullRequ__3214EC07B00B590C").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar(max)").IsRequired(false).IsUnicode(false);
@@ -1533,10 +1535,10 @@ namespace GitLearn.Data
             builder.Property(x => x.ReviewerId).HasColumnName(@"ReviewerId").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.FromBranch).WithMany(b => b.PullRequests_FromBranchId).HasForeignKey(c => c.FromBranchId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__PullReque__FromB__59063A47");
-            builder.HasOne(a => a.Owner).WithMany(b => b.PullRequests_OwnerId).HasForeignKey(c => c.OwnerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__PullReque__Owner__5812160E");
-            builder.HasOne(a => a.Reviewer).WithMany(b => b.PullRequests_ReviewerId).HasForeignKey(c => c.ReviewerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__PullReque__Revie__571DF1D5");
-            builder.HasOne(a => a.ToBranch).WithMany(b => b.PullRequests_ToBranchId).HasForeignKey(c => c.ToBranchId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__PullReque__ToBra__59FA5E80");
+            builder.HasOne(a => a.FromBranch).WithMany(b => b.PullRequests_FromBranchId).HasForeignKey(c => c.FromBranchId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__PullReque__FromB__5812160E");
+            builder.HasOne(a => a.Owner).WithMany(b => b.PullRequests_OwnerId).HasForeignKey(c => c.OwnerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__PullReque__Owner__571DF1D5");
+            builder.HasOne(a => a.Reviewer).WithMany(b => b.PullRequests_ReviewerId).HasForeignKey(c => c.ReviewerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__PullReque__Revie__5629CD9C");
+            builder.HasOne(a => a.ToBranch).WithMany(b => b.PullRequests_ToBranchId).HasForeignKey(c => c.ToBranchId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__PullReque__ToBra__59063A47");
         }
     }
 
@@ -1546,7 +1548,7 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<Repo> builder)
         {
             builder.ToTable("Repo", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__Repo__3214EC0726C71E0B").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__Repo__3214EC078B55E1B2").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar(max)").IsRequired(false).IsUnicode(false);
@@ -1558,10 +1560,10 @@ namespace GitLearn.Data
             builder.Property(x => x.InviteRequestId).HasColumnName(@"InviteRequestId").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.Branch).WithMany(b => b.Repoes).HasForeignKey(c => c.BranchId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Repo__BranchId__70DDC3D8");
-            builder.HasOne(a => a.InviteRequest).WithMany(b => b.Repoes).HasForeignKey(c => c.InviteRequestId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Repo__InviteRequ__72C60C4A");
-            builder.HasOne(a => a.PullRequest).WithMany(b => b.Repoes).HasForeignKey(c => c.PullRequestId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Repo__PullReques__619B8048");
-            builder.HasOne(a => a.User).WithMany(b => b.Repoes).HasForeignKey(c => c.OwnerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Repo__OwnerId__5EBF139D");
+            builder.HasOne(a => a.Branch).WithMany(b => b.Repoes).HasForeignKey(c => c.BranchId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Repo__BranchId__5EBF139D");
+            builder.HasOne(a => a.InviteRequest).WithMany(b => b.Repoes).HasForeignKey(c => c.InviteRequestId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Repo__InviteRequ__60A75C0F");
+            builder.HasOne(a => a.PullRequest).WithMany(b => b.Repoes).HasForeignKey(c => c.PullRequestId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Repo__PullReques__5FB337D6");
+            builder.HasOne(a => a.User).WithMany(b => b.Repoes).HasForeignKey(c => c.OwnerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Repo__OwnerId__5DCAEF64");
         }
     }
 
@@ -1571,15 +1573,15 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<RepoTeam> builder)
         {
             builder.ToTable("RepoTeam", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__RepoTeam__3214EC0755259413").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__RepoTeam__3214EC07F4A744E9").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.RepositoryId).HasColumnName(@"RepositoryId").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TeamId).HasColumnName(@"TeamId").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.Repo).WithMany(b => b.RepoTeams).HasForeignKey(c => c.RepositoryId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__RepoTeam__Reposi__5CD6CB2B");
-            builder.HasOne(a => a.Team).WithMany(b => b.RepoTeams).HasForeignKey(c => c.TeamId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__RepoTeam__TeamId__5DCAEF64");
+            builder.HasOne(a => a.Repo).WithMany(b => b.RepoTeams).HasForeignKey(c => c.RepositoryId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__RepoTeam__Reposi__5BE2A6F2");
+            builder.HasOne(a => a.Team).WithMany(b => b.RepoTeams).HasForeignKey(c => c.TeamId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__RepoTeam__TeamId__5CD6CB2B");
         }
     }
 
@@ -1589,15 +1591,15 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<RepoUser> builder)
         {
             builder.ToTable("RepoUser", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__RepoUser__3214EC07B043BA10").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__RepoUser__3214EC074EF63859").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.RepoId).HasColumnName(@"RepoId").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.Repo).WithMany(b => b.RepoUsers).HasForeignKey(c => c.RepoId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__RepoUser__RepoId__5AEE82B9");
-            builder.HasOne(a => a.User).WithMany(b => b.RepoUsers).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__RepoUser__UserId__5BE2A6F2");
+            builder.HasOne(a => a.Repo).WithMany(b => b.RepoUsers).HasForeignKey(c => c.RepoId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__RepoUser__RepoId__59FA5E80");
+            builder.HasOne(a => a.User).WithMany(b => b.RepoUsers).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__RepoUser__UserId__5AEE82B9");
         }
     }
 
@@ -1607,7 +1609,7 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<Team> builder)
         {
             builder.ToTable("Team", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__Team__3214EC0794DAA2EB").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__Team__3214EC076FFFBD1E").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar(max)").IsRequired(false).IsUnicode(false);
@@ -1616,7 +1618,7 @@ namespace GitLearn.Data
             builder.Property(x => x.IsPublic).HasColumnName(@"IsPublic").HasColumnType("tinyint").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.ParentTeam).WithMany(b => b.Teams).HasForeignKey(c => c.ParentTeamId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Team__ParentTeam__7A672E12");
+            builder.HasOne(a => a.ParentTeam).WithMany(b => b.Teams).HasForeignKey(c => c.ParentTeamId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Team__ParentTeam__68487DD7");
         }
     }
 
@@ -1626,15 +1628,15 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<TeamMember> builder)
         {
             builder.ToTable("TeamMember", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__TeamMemb__3214EC071F7D5772").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__TeamMemb__3214EC07282BB23D").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.TeamId).HasColumnName(@"TeamId").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.Team).WithMany(b => b.TeamMembers).HasForeignKey(c => c.TeamId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__TeamMembe__TeamI__787EE5A0");
-            builder.HasOne(a => a.User).WithMany(b => b.TeamMembers).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__TeamMembe__UserI__797309D9");
+            builder.HasOne(a => a.Team).WithMany(b => b.TeamMembers).HasForeignKey(c => c.TeamId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__TeamMembe__TeamI__66603565");
+            builder.HasOne(a => a.User).WithMany(b => b.TeamMembers).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__TeamMembe__UserI__6754599E");
         }
     }
 
@@ -1644,15 +1646,15 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<TeamUser> builder)
         {
             builder.ToTable("TeamUser", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__TeamUser__3214EC078EAB51AC").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__TeamUser__3214EC075AF26321").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.TeamId).HasColumnName(@"TeamId").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.Team).WithMany(b => b.TeamUsers).HasForeignKey(c => c.TeamId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__TeamUser__TeamId__73BA3083");
-            builder.HasOne(a => a.User).WithMany(b => b.TeamUsers).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__TeamUser__UserId__74AE54BC");
+            builder.HasOne(a => a.Team).WithMany(b => b.TeamUsers).HasForeignKey(c => c.TeamId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__TeamUser__TeamId__619B8048");
+            builder.HasOne(a => a.User).WithMany(b => b.TeamUsers).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__TeamUser__UserId__628FA481");
         }
     }
 
@@ -1662,7 +1664,7 @@ namespace GitLearn.Data
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("User", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK__User__3214EC07169A7498").IsClustered();
+            builder.HasKey(x => x.Id).HasName("PK__User__3214EC077B2E7D50").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar(max)").IsRequired(false).IsUnicode(false);

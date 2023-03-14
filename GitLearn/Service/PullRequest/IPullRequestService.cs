@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.Service.PullRequestService
+namespace GitLearn.Service.PullRequestService
 {
     public interface IPullRequestService : IBaseService<PullRequest>
     {

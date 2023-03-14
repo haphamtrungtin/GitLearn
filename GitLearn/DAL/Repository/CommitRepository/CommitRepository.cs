@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitSimulator.DAL.Repository.CommitRepository
+namespace GitLearn.DAL.Repository.CommitRepository
 {
     internal class CommitRepository : GenericRepository<Commit>, ICommitRepository
     {

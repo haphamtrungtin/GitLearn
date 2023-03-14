@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.Service.UserService
+namespace GitLearn.Service.UserService
 {
     internal interface IUserService : IBaseService<User>
     {

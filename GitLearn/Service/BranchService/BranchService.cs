@@ -1,7 +1,8 @@
 ﻿using GitLearn.Data;
-using GitSimulator.DAL.UnitOfWork;
+using GitLearn.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
-namespace GitSimulator.Service.BranchService
+namespace GitLearn.Service.BranchService
 {
     public class BranchService : BaseService<Branch>, IBranchService
     {

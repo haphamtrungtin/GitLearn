@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.DAL.Repository.InviteRequestRepository
+namespace GitLearn.DAL.Repository.InviteRequestRepository
 {
     public class InviteRequestRepository : GenericRepository<InviteRequest>, IInviteRequestRepository
     {

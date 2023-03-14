@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GitLearn.Data;
 
-namespace GitSimulator.Service.CommitService
+namespace GitLearn.Service.CommitService
 {
     public interface ICommitService : IBaseService<Commit>
     {

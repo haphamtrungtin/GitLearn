@@ -1,7 +1,7 @@
 ﻿using GitLearn.Data;
 
 
-namespace GitSimulator.DAL.Repository.PullRequestRepository
+namespace GitLearn.DAL.Repository.PullRequestRepository
 {
     internal interface IPullRequestRepository : IGenericRepository<PullRequest>
     {

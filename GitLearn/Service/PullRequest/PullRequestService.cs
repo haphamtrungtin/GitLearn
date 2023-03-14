@@ -1,8 +1,8 @@
 ﻿using GitLearn.Data;
-using GitSimulator.DAL.UnitOfWork;
+using GitLearn.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace GitSimulator.Service.PullRequestService
+namespace GitLearn.Service.PullRequestService
 {
     public class PullRequestService : BaseService<PullRequest>, IPullRequestService
     {

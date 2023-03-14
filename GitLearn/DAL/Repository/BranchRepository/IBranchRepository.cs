@@ -1,6 +1,6 @@
 ﻿using GitLearn.Data;
 
-namespace GitSimulator.DAL.Repository.BranchRepository
+namespace GitLearn.DAL.Repository.BranchRepository
 {
     internal interface IBranchRepository : IGenericRepository<Branch>
     {
