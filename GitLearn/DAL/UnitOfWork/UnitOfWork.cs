@@ -1,15 +1,8 @@
-﻿using GitLearn.Data;
-using GitSimulator.DAL.Repository;
-using GitSimulator.DAL.Repository.TeamRepository;
-using GitSimulator.DAL.Repository.UserRepository;
-using Microsoft.EntityFrameworkCore;
+﻿using GitLearn.DAL.Repositories.Interface;
+using GitLearn.DAL.Repositories.Repository;
+using GitLearn.DAL.Repository;
+using GitLearn.Data;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GitSimulator.DAL.UnitOfWork
 {
@@ -17,52 +10,60 @@ namespace GitSimulator.DAL.UnitOfWork
     {
         private readonly GitContext _context;
         private bool _disposed;
-        private Hashtable _repositories;
         private IDbContextTransaction _transaction;
-        public IGenericRepository<Team> teamRepository;
-        public IGenericRepository<User> userRepository;
+        public ITeamRepository teamRepository;
+        public IOrganizationRepository orgRepository;
+        public ITeamMemberRepository teamMemberRepository;
+        public IUserRepository userRepository;
+        public IInviteRequestRepository inviteRequestRepository;
 
-        public IGenericRepository<Team> TeamRepository
+        public IInviteRequestRepository InviteRequestRepository
         {
             get
             {
-                if (teamRepository != null)
-                {
-                    teamRepository = new GenericRepository<Team>(_context);
-                }
+                inviteRequestRepository ??= new InviteRequestRepository(_context);
+                return inviteRequestRepository;
+            }
+        }
+
+        public ITeamRepository TeamRepository
+        {
+            get
+            {
+                teamRepository ??= new TeamRepository(_context);
                 return teamRepository;
             }
         }
-        public IGenericRepository<User> UserRepository
+        
+        public IOrganizationRepository OrgRepository
         {
             get
             {
-                if (userRepository != null)
-                {
-                    userRepository = new GenericRepository<User>(_context);
-                }
+                orgRepository ??= new OrganizationRepository(_context);
+                return orgRepository;
+            }
+        }
+       
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                userRepository ??= new UserRepository(_context);
                 return userRepository;
             }
         }
 
+        public ITeamMemberRepository TeamMemberRepository
+        {
+            get
+            {
+                teamMemberRepository ??= new TeamMemberRepository(_context);
+                return teamMemberRepository;
+            }
+        }
         public UnitOfWork(GitContext context)
         {
             _context = context;
-            _repositories= new Hashtable();
-        }
-
-        public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
-        {
-            var type = typeof(TEntity).Name;
-
-            if (!_repositories.ContainsKey(type))
-            {
-                var repositoryType = typeof(GenericRepository<>);
-                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _context);
-                _repositories.Add(type, repositoryInstance);
-            }
-
-            return (IGenericRepository<TEntity>)_repositories[type];
         }
 
         public void Commit()

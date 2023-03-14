@@ -1,7 +1,7 @@
 using GitLearn.Data;
+using GitLearn.Services.Service;
 using GitSimulator.DAL.UnitOfWork;
-using GitSimulator.Service.TeamService;
-using GitSimulator.Service.UserService;
+
 
 namespace GitSimulator
 {
@@ -9,6 +9,7 @@ namespace GitSimulator
     public class UnitTest1
     {
         GitContext _context;
+        private  IUnitOfWork _uow;
 
         [TestInitialize]
         public void TestInitialize()
@@ -46,6 +47,7 @@ namespace GitSimulator
                 Name="team"
             });
             _context.SaveChanges();
+             _uow = new UnitOfWork(_context);
         }
 
         [TestCleanup]
@@ -62,25 +64,7 @@ namespace GitSimulator
             Assert.IsNotNull(_context);
         }
 
-        [TestMethod]
-        public void CreateTeamTest()
-        {
-            //Create org
-            //Add team into org
-            //org can assign team to a repo
-            string name = "New team";
-            string description = "Lorem ipsum";
-            int creatorId = 1;
-            var uow = new UnitOfWork(_context);
-            var teamService = new TeamService(uow);
-
-            Team newTeam = teamService.CreateTeam(creatorId, name);
-
-            Assert.AreEqual(creatorId, newTeam.TeamUsers.FirstOrDefault().Id);
-
-            Assert.IsNotNull(_context);
-        }
-
+       
         [TestMethod]
         public void RemoveTeamMemberTest()
         {
@@ -150,10 +134,9 @@ namespace GitSimulator
         [TestMethod]
         public void ServiceTest()
         {
-            var uow = new UnitOfWork(_context);
-            var service = new UserServices(uow);
+            var userService = new UserServices(_uow);
 
-            var result = service.GetById(1);
+            var result = userService.GetById(1);
 
             Assert.IsNotNull(result);
         }
