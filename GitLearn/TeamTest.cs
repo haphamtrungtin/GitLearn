@@ -209,6 +209,9 @@ namespace GitLearn
         [TestMethod]
         public void View_MemberList()
         {
+            var teamId = 1;
+
+            var teamMembers = _teamService.ViewMembers(teamId);
 
         }
         [TestMethod]

@@ -116,5 +116,10 @@ namespace GitLearn.Services.Service
             return team;   
         }
 
+        internal List<TeamMember> ViewMembers(int teamId)
+        {
+
+            throw new NotImplementedException();
+        }
     }
 }
