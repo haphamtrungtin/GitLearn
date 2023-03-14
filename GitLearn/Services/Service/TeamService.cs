@@ -119,8 +119,9 @@ namespace GitLearn.Services.Service
 
         internal List<TeamMember> ViewMembers(int teamId)
         {
-
-            throw new NotImplementedException();
+            var team = _unitOfWork.TeamMemberRepository.GetAll();
+            var teamMember = team.Where(tm => tm.TeamId.Equals(teamId)).ToList();
+            return teamMember;
         }
     }
 }

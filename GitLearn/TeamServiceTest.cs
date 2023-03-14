@@ -213,6 +213,7 @@ namespace GitLearn
 
             var teamMembers = _teamService.ViewMembers(teamId);
 
+            Assert.AreEqual(14, teamMembers.Count);
         }
         [TestMethod]
         public void View_TeamList()
