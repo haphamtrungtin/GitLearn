@@ -35,6 +35,26 @@ namespace GitLearn.Services.Service
             return newTeam;
         }
 
+        internal Team CreateSubTeam(int parentTeamId, string subTeamName)
+        {
+            var team = _unitOfWork.TeamRepository.GetById(parentTeamId);
+
+            Team newTeam = new()
+            {
+                IsParentTeam = false,
+                IsPublic = true,
+                Name = subTeamName,
+                Organization = team.Organization,
+                OrganizationId = team.OrganizationId,
+                ParentTeam = team,
+                ParentTeamId = parentTeamId,
+            };
+
+            _unitOfWork.TeamRepository.Create(newTeam);
+            _unitOfWork.Save();
+            return newTeam;
+        }
+
         internal Team CreateTeamWithMember(int orgId, int creatorId, string teamName, params int[] memberIds)
         {
             var org = _unitOfWork.OrgRepository.GetById(orgId);
@@ -61,7 +81,6 @@ namespace GitLearn.Services.Service
             _unitOfWork.Save();
             return newTeam;
         }
-
         internal Team InviteMemberInsideOrganization(int teamId, params int[] memberId)
         {
             var team = _unitOfWork.TeamRepository.GetById(teamId);
@@ -90,38 +109,38 @@ namespace GitLearn.Services.Service
             }
             throw new Exception("Request is not accepted");
         }
-
         private static bool CheckIsMemberExistInTeam(Team team, User member)
         {
             return team.TeamMembers.Any(t => t.UserId.Equals(member.Id));
         }
-
         private void CreateTeamMember(Team newTeam, User user)
         {
             var teamMember = new TeamMember() { Team = newTeam, User = user };
             _unitOfWork.TeamMemberRepository.Create(teamMember);
-            
-        }
 
+        }
         internal Team RemoveMember(int teamId, params int[] memberId)
         {
             var team = _unitOfWork.TeamRepository.GetById(teamId);
 
-            foreach(var m in memberId)
+            foreach (var m in memberId)
             {
                 var teamMember = team.TeamMembers.FirstOrDefault(tm => tm.UserId.Equals(m));
                 team.TeamMembers.Remove(teamMember);
             }
 
             _unitOfWork.Save();
-            return team;   
+            return team;
         }
-
         internal List<TeamMember> ViewMembers(int teamId)
         {
-            var team = _unitOfWork.TeamMemberRepository.GetAll();
-            var teamMember = team.Where(tm => tm.TeamId.Equals(teamId)).ToList();
+            var teamMember = _unitOfWork.TeamMemberRepository.GetByCondition(tm => tm.TeamId.Equals(teamId)).ToList();
             return teamMember;
+        }
+        internal List<Team> ViewSubTeams(int teamId)
+        {
+            var subTeam = _unitOfWork.TeamRepository.GetByCondition(t => t.ParentTeamId.Equals(teamId)).ToList();
+            return subTeam;
         }
     }
 }

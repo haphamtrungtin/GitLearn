@@ -84,6 +84,24 @@ namespace GitLearn
 
             Assert.AreEqual(newTeam.Name, teamName);
         }
+
+        [TestMethod]
+        public void CreateTeam_SubTeam_Test()
+        {
+            var teamName = "New Team";
+            var creatorId = 1;
+            var orgId = 1;
+            var newTeam = _teamService.CreateTeam(orgId, creatorId, teamName);
+
+            Assert.AreEqual(newTeam.Name, teamName);
+
+            var subTeamName = "Sub team";
+            var subteam = _teamService.CreateSubTeam(newTeam.Id, subTeamName);
+
+            Assert.AreEqual(newTeam, subteam.ParentTeam);
+            Assert.AreEqual(subTeamName, subteam.Name);
+        }
+
         [TestMethod]
         public void CreateTeam_WithCreator_OneMember_Test()
         {
@@ -216,10 +234,19 @@ namespace GitLearn
             Assert.AreEqual(14, teamMembers.Count);
         }
         [TestMethod]
-        public void View_TeamList()
+        public void View_SubTeamList()
         {
+            var teamName = "New Team";
+            var creatorId = 1;
+            var orgId = 1;
+            var subTeamName = "Sub team";
+            var newTeam = _teamService.CreateTeam(orgId, creatorId, teamName);
+            _teamService.CreateSubTeam(newTeam.Id, subTeamName);
+            var subTeams = _teamService.ViewSubTeams(newTeam.Id);
 
+            Assert.AreEqual(1, subTeams.Count);
         }
+
         [TestMethod]
         public void View_MemberById()
         {
