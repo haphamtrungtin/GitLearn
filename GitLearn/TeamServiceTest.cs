@@ -109,7 +109,7 @@ namespace GitLearn
             var creatorId = 1;
             var memberId = 2;
             var orgId = 1;
-            var newTeam = _teamService.CreateTeamWithMember(orgId, creatorId, teamName, memberId);
+            var newTeam = _teamService.CreateTeamWithMembers(orgId, creatorId, teamName, memberId);
 
             Assert.AreEqual(teamName, newTeam.Name);
             Assert.AreEqual(2, newTeam.TeamMembers.Count);
@@ -125,7 +125,7 @@ namespace GitLearn
                 2, 4, 6
             };
 
-            var newTeam = _teamService.CreateTeamWithMember(orgId, creatorId, teamName, memberIds);
+            var newTeam = _teamService.CreateTeamWithMembers(orgId, creatorId, teamName, memberIds);
 
             Assert.AreEqual(teamName, newTeam.Name);
             Assert.AreEqual(4, newTeam.TeamMembers.Count);
@@ -198,7 +198,7 @@ namespace GitLearn
 
             _teamService.InviteMemberInsideOrganization(teamId, memberIds);
 
-            var removedTeam = _teamService.RemoveMember(teamId, memberId);
+            var removedTeam = _teamService.RemoveMembers(teamId, memberId);
 
             Assert.AreEqual(2, removedTeam.TeamMembers.Count);
         }
@@ -219,7 +219,7 @@ namespace GitLearn
 
             _teamService.InviteMemberInsideOrganization(teamId, memberIds);
 
-            var removedTeam = _teamService.RemoveMember(teamId, removeMemberIds);
+            var removedTeam = _teamService.RemoveMembers(teamId, removeMemberIds);
 
             Assert.AreEqual(2, removedTeam.TeamMembers.Count);
         }
@@ -231,7 +231,7 @@ namespace GitLearn
 
             var teamMembers = _teamService.ViewMembers(teamId);
 
-            Assert.AreEqual(14, teamMembers.Count);
+            Assert.AreEqual(25, teamMembers.Count);
         }
         [TestMethod]
         public void View_SubTeamList()

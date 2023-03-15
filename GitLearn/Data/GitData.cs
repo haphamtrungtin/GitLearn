@@ -1343,6 +1343,7 @@ namespace GitLearn.Data
         public int Id { get; set; } // Id (Primary key)
         public int? TeamId { get; set; } // TeamId
         public int? UserId { get; set; } // UserId
+        public string? Role { get; set; } //Role
 
         // Foreign keys
 
