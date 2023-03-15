@@ -19,6 +19,7 @@ namespace GitLearn.DAL.UnitOfWork
         private readonly GitContext _context;
         private bool _disposed = false;
         private IDbContextTransaction _transaction;
+        private Hashtable _repos;
 
         private Dictionary<(Type type, string name), object> _repositories;
 
@@ -51,13 +52,10 @@ namespace GitLearn.DAL.UnitOfWork
         public UnitOfWork(GitContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            _repos = new Hashtable();
 
         }
 
-        public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
-        {
-            return (IGenericRepository<TEntity>)GetOrAddRepository(typeof(TEntity), new GenericRepository<TEntity>(_context));
-        }
 
         public void Commit()
         {
@@ -108,5 +106,17 @@ namespace GitLearn.DAL.UnitOfWork
             return repo;
         }
 
+        public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class
+        {
+            if (_repos is null)
+                _repos = new Hashtable();
+            var type = typeof(TEntity).Name;
+            if (!_repos.ContainsKey(type))
+            {
+                var repository = new GenericRepository<TEntity>(_context);
+                _repos.Add(type, repository);
+            }
+            return (IGenericRepository<TEntity>)_repos[type];
+        }
     }
 }

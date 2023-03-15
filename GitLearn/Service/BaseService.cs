@@ -18,7 +18,7 @@ namespace GitLearn.Service
         public BaseService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _repository = _unitOfWork.GetRepository<TEntity>();
+            _repository = _unitOfWork.Repository<TEntity>();
         }
 
         public void Create(TEntity entity)

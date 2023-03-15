@@ -9,8 +9,8 @@ namespace GitLearn.DAL.UnitOfWork
     {
         IGenericRepository<Team> TeamRepository { get; }
         IGenericRepository<User> UserRepository { get; }
-        IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
         IDbContextTransaction CreateTransaction();
+        IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class;
         void Commit();
         void Rollback(string rollbackVersion);
         void SaveChange();

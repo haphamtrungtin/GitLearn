@@ -36,7 +36,7 @@ namespace GitLearn
         public void GetRepositoryTest()
         {
             var uow = new UnitOfWork(_context);
-            var result = uow.GetRepository<User>();
+            var result = uow.Repository<User>();
 
             Assert.IsNotNull(result);
         }
@@ -86,5 +86,14 @@ namespace GitLearn
             Assert.AreEqual(59, result);
         }
 
+        [TestMethod]
+        public void UsingService_With_UOW_Test()
+        {
+            var uow = new UnitOfWork(_context);
+            var userService = new UserServices(uow);
+            var result = userService.GetById(100);
+
+            Assert.IsNotNull(result);
+        }
     }
 }
