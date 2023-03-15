@@ -46,10 +46,11 @@ namespace GitLearn
         {
             var uow = new UnitOfWork(_context);
             uow.CreateTransaction();
+            uow.Repository<User>().DeleteById(100);
             uow.Commit();
             var result = uow.UserRepository.GetAll().Count();
 
-            Assert.AreEqual(29, result);
+            Assert.AreEqual(57, result);
         }
 
         [TestMethod]
@@ -94,6 +95,15 @@ namespace GitLearn
             var result = userService.GetById(100);
 
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetMethod_In_Repository_With_UOW_Test()
+        {
+            var uow = new UnitOfWork(_context);
+            var userList = uow.Repository<User>().GetAll();
+
+            Assert.IsNotNull(userList);
         }
     }
 }
