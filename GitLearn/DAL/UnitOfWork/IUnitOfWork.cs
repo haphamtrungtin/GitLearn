@@ -1,6 +1,7 @@
 ﻿using GitLearn.Data;
 using GitLearn.DAL.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace GitLearn.DAL.UnitOfWork
 {
@@ -9,9 +10,9 @@ namespace GitLearn.DAL.UnitOfWork
         IGenericRepository<Team> TeamRepository { get; }
         IGenericRepository<User> UserRepository { get; }
         IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
-        void CreateTransaction();
+        IDbContextTransaction CreateTransaction();
         void Commit();
-        void Rollback();
+        void Rollback(string rollbackVersion);
         void SaveChange();
     }
 }

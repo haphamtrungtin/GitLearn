@@ -1,4 +1,6 @@
 ﻿using GitLearn.Data;
+using GitLearn.Service.RepoService;
+using GitLearn.Service.UserService;
 
 namespace GitLearn.DAL.Repository.UserRepository
 {

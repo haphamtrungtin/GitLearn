@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace GitLearn.DAL.UnitOfWork
 {
@@ -50,22 +51,24 @@ namespace GitLearn.DAL.UnitOfWork
         public UnitOfWork(GitContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+
         }
 
         public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
-            return (IGenericRepository<TEntity>) GetOrAddRepository(typeof(TEntity), new GenericRepository<TEntity>(_context));
+            return (IGenericRepository<TEntity>)GetOrAddRepository(typeof(TEntity), new GenericRepository<TEntity>(_context));
         }
 
         public void Commit()
         {
-            _transaction.Commit();
             _context.SaveChanges();
+            _transaction.Commit();
         }
 
-        public void CreateTransaction()
+        public IDbContextTransaction CreateTransaction()
         {
             _transaction = _context.Database.BeginTransaction();
+            return _transaction;
         }
 
         public void Dispose()
@@ -74,15 +77,19 @@ namespace GitLearn.DAL.UnitOfWork
             GC.SuppressFinalize(this);
         }
 
-        public void Rollback()
+        public void Rollback(string rollbackVersion)
         {
-            _transaction.Rollback();
-            _transaction.Dispose();
+            _transaction.RollbackToSavepoint(rollbackVersion);
         }
 
         public void SaveChange()
         {
             _context.SaveChanges();
+        }
+
+        public void CreateSavePointTransaction(string savepointVersion)
+        {
+            _transaction.CreateSavepoint(savepointVersion);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -101,9 +108,5 @@ namespace GitLearn.DAL.UnitOfWork
             return repo;
         }
 
-        internal IDbContextTransaction GetTransaction()
-        {
-            return _transaction;
-        }
     }
 }

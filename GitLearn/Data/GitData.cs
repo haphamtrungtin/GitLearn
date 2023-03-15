@@ -1337,7 +1337,6 @@ namespace GitLearn.Data
     // User
     public class User
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name
         public string Email { get; set; } // Email (length: 50)

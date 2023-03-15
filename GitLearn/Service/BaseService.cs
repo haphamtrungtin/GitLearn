@@ -14,6 +14,7 @@ namespace GitLearn.Service
         private IUnitOfWork _unitOfWork;
         private IGenericRepository<TEntity> _repository;
 
+
         public BaseService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

@@ -3,6 +3,7 @@ using GitLearn.DAL.UnitOfWork;
 using GitLearn.Service.TeamService;
 using GitLearn.Service.UserService;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace GitLearn
 {
@@ -32,11 +33,10 @@ namespace GitLearn
         }
 
         [TestMethod]
-        public void GetRepository_Test()
+        public void GetRepositoryTest()
         {
             var uow = new UnitOfWork(_context);
             var result = uow.GetRepository<User>();
-            var result1 = uow.GetRepository<User>();
 
             Assert.IsNotNull(result);
         }
@@ -56,9 +56,8 @@ namespace GitLearn
         public void CreateTransactionTest() 
         {
             var uow = new UnitOfWork(_context);
-            uow.CreateTransaction();
+            var result = uow.CreateTransaction();
 
-            var result = uow.GetTransaction();
             Assert.IsNotNull(result);
         }
 
@@ -67,12 +66,24 @@ namespace GitLearn
         {
             var uow = new UnitOfWork( _context);
             uow.CreateTransaction();
-            uow.UserRepository.Create(new User() { UserName = "Hoang" });
-            uow.Rollback();
-            uow.SaveChange();
+            try
+            {
+                uow.UserRepository.Create(new User() { UserName = "Hoang" });
+                var version = "more users";
+                uow.SaveChange();
+                uow.CreateSavePointTransaction(version);
+
+                uow.UserRepository.DeleteById(150);
+                uow.SaveChange();
+                uow.Commit();
+            }
+            catch(Exception)
+            {
+                uow.Rollback("more users");
+            }
 
             var result = uow.UserRepository.GetAll().Count();
-            Assert.AreEqual(45, result);
+            Assert.AreEqual(59, result);
         }
 
     }
