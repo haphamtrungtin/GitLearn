@@ -97,15 +97,6 @@ namespace GitLearn.DAL.UnitOfWork
             _disposed = true;
         }
 
-        internal object GetOrAddRepository(Type type, object repo)
-        {
-            _repositories ??= new Dictionary<(Type type, string Name), object>();
-
-            if (_repositories.TryGetValue((type, repo.GetType().FullName), out var repository)) return repository;
-            _repositories.Add((type, repo.GetType().FullName), repo);
-            return repo;
-        }
-
         public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class
         {
             if (_repos is null)
