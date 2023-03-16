@@ -1,4 +1,5 @@
-﻿using GitLearn.Data;
+﻿using GitLearn.DAL.UnitOfWork;
+using GitLearn.Data;
 using GitLearn.Service.BranchService;
 using GitSimulator.DAL.UnitOfWork;
 using GitSimulator.Service;

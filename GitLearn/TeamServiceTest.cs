@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GitLearn.DAL.Repositories.Interface;
+using GitLearn.DAL.Repositories.Repository;
+using GitLearn.DAL.UnitOfWork;
 using GitLearn.Data;
 using GitLearn.Services.Service;
 using GitSimulator.DAL.UnitOfWork;
@@ -17,6 +20,7 @@ namespace GitLearn
         private TeamService _teamService;
         private InviteRequestService _inviteRequestService;
         private UserServices _userService;
+        private IUserRepository _userRepository;
 
         [TestInitialize]
         public void TestInitialize()
@@ -63,7 +67,7 @@ namespace GitLearn
 
             _context.SaveChanges();
             _uow = new UnitOfWork(_context);
-            _teamService = new TeamService(_uow);
+            _teamService = new TeamService( _uow);
             _inviteRequestService = new InviteRequestService(_uow);
             _userService = new UserServices(_uow);
         }
@@ -178,8 +182,8 @@ namespace GitLearn
 
             Assert.AreEqual(newTeam.Name, teamName);
 
-            var inviteRequest = _inviteRequestService.InviteMemberOrganization(orgId, memberId);
-            var acceptedRequest = _userService.AcceptInvitation(inviteRequest.Id);
+            var orgUser = _inviteRequestService.InviteMemberOrganization(orgId, memberId);
+            var acceptedRequest = _userService.AcceptInvitation(orgUser.Id);
             var team = _teamService.InviteMemberOutsideOrganization(newTeam.Id, acceptedRequest.Id);
 
             Assert.AreEqual(2, team.TeamMembers.Count);
@@ -231,7 +235,7 @@ namespace GitLearn
 
             var teamMembers = _teamService.ViewMembers(teamId);
 
-            Assert.AreEqual(25, teamMembers.Count);
+            Assert.AreEqual(22, teamMembers.Count);
         }
         [TestMethod]
         public void View_SubTeamList()
@@ -256,6 +260,23 @@ namespace GitLearn
         public void View_MemberByRole()
         {
 
+        }
+        [TestMethod]
+        public async Task Get_TeamById_Async_Test()
+        {
+            var teamId = 1;
+            var teamRepo = new TeamRepository(_context);
+            var team = await teamRepo.GetByIdAsync(teamId);
+
+            Assert.IsNotNull(team);
+        }
+        [TestMethod]
+        public async Task Get_Teams_Async_Test()
+        {
+            var teamRepo = new TeamRepository(_context);
+            var teams = await teamRepo.GetAllAsync();
+
+            Assert.IsNotNull(teams);
         }
     }
 }

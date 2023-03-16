@@ -61,6 +61,14 @@ namespace GitLearn.DAL.Repository
             _dbSet.Entry(entity).State = EntityState.Modified;
         }
 
-        
+        public async Task<TEntity> GetByIdAsync(int? id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+        public async Task<List<TEntity>> GetAllAsync()
+        {
+            return await _context.Set<TEntity>().ToListAsync();
+        }
     }
 }

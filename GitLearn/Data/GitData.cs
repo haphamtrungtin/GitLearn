@@ -1099,6 +1099,7 @@ namespace GitLearn.Data
         public int Id { get; set; } // Id (Primary key)
         public int? OrganizationId { get; set; } // OrganizationId
         public int? UserId { get; set; } // UserId
+        public string Status { get; set; }
 
         // Foreign keys
 
@@ -1250,6 +1251,7 @@ namespace GitLearn.Data
         public int Id { get; set; } // Id (Primary key)
         public int? RepoId { get; set; } // RepoId
         public int? UserId { get; set; } // UserId
+        public string? Status { get; set; }
 
         // Foreign keys
 

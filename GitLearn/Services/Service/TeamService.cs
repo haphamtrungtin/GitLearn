@@ -2,6 +2,9 @@
 using GitLearn.Data;
 using GitSimulator.Service;
 using GitLearn.Services.Interface;
+using GitLearn.DAL.UnitOfWork;
+using AutoMapper;
+using GitLearn.DAL.Repositories.Interface;
 
 namespace GitLearn.Services.Service
 {
@@ -16,8 +19,8 @@ namespace GitLearn.Services.Service
 
         public Team CreateTeam(int orgId, int creatorId, string name)
         {
-            var org = _unitOfWork.OrgRepository.GetById(orgId);
-            var user = _unitOfWork.UserRepository.GetById(creatorId);
+            var org = _unitOfWork.Repository<Organization>().GetById(orgId);
+            var user = _unitOfWork.Repository<User>().GetById(creatorId);
 
             Team newTeam = new()
             {
@@ -30,14 +33,13 @@ namespace GitLearn.Services.Service
 
             CreateTeamMember(newTeam, user);
 
-            _unitOfWork.TeamRepository.Create(newTeam);
+            _unitOfWork.Repository<Team>().Create(newTeam);
             _unitOfWork.Save();
             return newTeam;
         }
-
         public Team CreateSubTeam(int parentTeamId, string subTeamName)
         {
-            var team = _unitOfWork.TeamRepository.GetById(parentTeamId);
+            var team = _unitOfWork.Repository<Team>().GetById(parentTeamId);
 
             Team newTeam = new()
             {
@@ -50,15 +52,16 @@ namespace GitLearn.Services.Service
                 ParentTeamId = parentTeamId,
             };
 
-            _unitOfWork.TeamRepository.Create(newTeam);
+            _unitOfWork.Repository<Team>().Create(newTeam);
             _unitOfWork.Save();
             return newTeam;
         }
         public Team CreateTeamWithMembers(int orgId, int creatorId, string teamName, params int[] memberIds)
         {
-            var org = _unitOfWork.OrgRepository.GetById(orgId);
-            var user = _unitOfWork.UserRepository.GetById(creatorId);
-            var members = _unitOfWork.UserRepository.GetUserList(memberIds);
+            var userService = new UserServices(_unitOfWork);
+            var org = _unitOfWork.Repository<Organization>().GetById(orgId);
+            var user = _unitOfWork.Repository<User>().GetById(creatorId);
+            var members = userService.GetUserList(memberIds);
 
             Team newTeam = new()
             {
@@ -76,14 +79,15 @@ namespace GitLearn.Services.Service
                 CreateTeamMember(newTeam, m);
             }
 
-            _unitOfWork.TeamRepository.Create(newTeam);
+            _unitOfWork.Repository<Team>().Create(newTeam);
             _unitOfWork.Save();
             return newTeam;
         }
         public Team InviteMemberInsideOrganization(int teamId, params int[] memberId)
         {
-            var team = _unitOfWork.TeamRepository.GetById(teamId);
-            var members = _unitOfWork.UserRepository.GetUserList(memberId).ToList();
+            var userService = new UserServices(_unitOfWork);
+            var team = _unitOfWork.Repository<Team>().GetById(teamId);
+            var members = userService.GetUserList(memberId).ToList();
 
             foreach (var m in members)
             {
@@ -98,9 +102,10 @@ namespace GitLearn.Services.Service
         }
         public Team InviteMemberOutsideOrganization(int teamId, int requestId)
         {
-            var team = _unitOfWork.TeamRepository.GetById(teamId);
-            var request = _unitOfWork.InviteRequestRepository.GetById(requestId);
-            var user = _unitOfWork.UserRepository.GetById(request.ReceiverId);
+            var team = _unitOfWork.Repository<Team>().GetById(teamId);
+            var request = _unitOfWork.Repository<OrgUser>().GetById(requestId);
+            var user = _unitOfWork.Repository<User>().GetById(request.UserId);
+
             if (request.Status.Equals("ACCEPTED"))
             {
                 CreateTeamMember(team, user);
@@ -115,12 +120,12 @@ namespace GitLearn.Services.Service
         private void CreateTeamMember(Team newTeam, User user)
         {
             var teamMember = new TeamMember() { Team = newTeam, User = user };
-            _unitOfWork.TeamMemberRepository.Create(teamMember);
+            _unitOfWork.Repository<TeamMember>().Create(teamMember);
 
         }
         public Team RemoveMembers(int teamId, params int[] memberId)
         {
-            var team = _unitOfWork.TeamRepository.GetById(teamId);
+            var team = _unitOfWork.Repository<Team>().GetById(teamId);
 
             foreach (var m in memberId)
             {
@@ -131,16 +136,34 @@ namespace GitLearn.Services.Service
             _unitOfWork.Save();
             return team;
         }
+
         public List<TeamMember> ViewMembers(int teamId)
         {
-            var teamMember = _unitOfWork.TeamMemberRepository.GetByCondition(tm => tm.TeamId.Equals(teamId)).ToList();
+            var teamMember = _unitOfWork.Repository<TeamMember>().GetByCondition(tm => tm.TeamId.Equals(teamId)).ToList();
             return teamMember;
         }
         public List<Team> ViewSubTeams(int teamId)
         {
-            var subTeam = _unitOfWork.TeamRepository.GetByCondition(t => t.ParentTeamId.Equals(teamId)).ToList();
+            var subTeam = _unitOfWork.Repository<Team>().GetByCondition(t => t.ParentTeamId.Equals(teamId)).ToList();
             return subTeam;
         }
 
+        public async Task<Team> GetByIdAsync(int id)
+        {
+            var team = await _unitOfWork.Repository<Team>().GetByIdAsync(id);
+            return team;
+        }
+
+        public async Task<List<Team>> GetAllAsync()
+        {
+            var teams = await _unitOfWork.Repository<Team>().GetAllAsync();
+            return teams;
+        }
+        public void Delete(Team team)
+        {
+            _unitOfWork.Repository<Team>().Delete(team);
+        }
+
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using GitLearn.Data;
+﻿using GitLearn.DAL.UnitOfWork;
+using GitLearn.Data;
 using GitLearn.Services.Interface;
 using GitSimulator.DAL.UnitOfWork;
 using GitSimulator.Service;
@@ -14,22 +15,22 @@ namespace GitLearn.Services.Service
             _unitOfWork = unitOfWork;
         }
 
-        internal InviteRequest InviteMemberOrganization(int orgId, int memberId)
+        internal OrgUser InviteMemberOrganization(int orgId, int memberId)
         {
-            var org = _unitOfWork.OrgRepository.GetById(orgId);
+            var org = _unitOfWork.Repository<Organization>().GetById(orgId);
             bool isExist = org.OrgUsers.Any(ou => ou.UserId.Equals(memberId));
             if (!isExist)
             {
-                var inviteRequest = new InviteRequest()
+                var orgUser = new OrgUser()
                 {
-                    Organization = org,
-                    OrganizationId = orgId,
-                    ReceiverId = memberId,
-                    Status = "SENT"
+                   Organization=org,
+                   OrganizationId=orgId,
+                   UserId=memberId,
+                   Status = "INVITED"
                 };
-                _unitOfWork.InviteRequestRepository.Create(inviteRequest);
+                _unitOfWork.Repository<OrgUser>().Create(orgUser);
                 _unitOfWork.Save();
-                return inviteRequest;
+                return orgUser;
             }
             throw new Exception("User already exists in organization");
         }

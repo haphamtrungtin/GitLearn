@@ -2,10 +2,12 @@
 
 
 
+using GitLearn.DAL.UnitOfWork;
 using GitLearn.Data;
 using GitLearn.Service.UserService;
 using GitSimulator.DAL.UnitOfWork;
 using GitSimulator.Service;
+using Microsoft.EntityFrameworkCore;
 
 namespace GitLearn.Services.Service
 {
@@ -17,11 +19,16 @@ namespace GitLearn.Services.Service
             _unitOfWork = unitOfWork;
         }
 
-        internal InviteRequest AcceptInvitation(int requestId)
+        internal OrgUser AcceptInvitation(int requestId)
         {
-            var request = _unitOfWork.InviteRequestRepository.GetById(requestId);
+            var request = _unitOfWork.Repository<OrgUser>().GetById(requestId);
             request.Status = "ACCEPTED";
             return request;
+        }
+
+        public IEnumerable<User> GetUserList(int[] ids)
+        {
+            return _unitOfWork.Repository<User>().GetAll().Where(t => ids.Contains(t.Id));
         }
     }
 }
